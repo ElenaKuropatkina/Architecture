@@ -1,13 +1,14 @@
 //package com.elenakuropatkina.democrm.dataMappers;
 //
-//import com.elenakuropatkina.democrm.entities.Client;
 //import com.elenakuropatkina.democrm.entities.Deal;
 //import org.springframework.jdbc.core.RowMapper;
+//import org.springframework.stereotype.Component;
 //
 //import java.sql.ResultSet;
 //import java.sql.SQLException;
 //
-//public class DealMapper implements RowMapper {
+//@Component
+//public class DealMapper implements RowMapper<Deal> {
 //    @Override
 //    public Deal mapRow(ResultSet rs, int rowNum) throws SQLException {
 //        Deal deal = new Deal();

@@ -1,12 +1,15 @@
 package com.elenakuropatkina.democrm.dataMappers;
 
 import com.elenakuropatkina.democrm.entities.Product;
+
 import org.springframework.jdbc.core.RowMapper;
+import org.springframework.stereotype.Component;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class ProductMapper implements RowMapper {
+@Component
+public class ProductMapper implements RowMapper<Product> {
 
     @Override
     public Product mapRow(ResultSet rs, int rowNum) throws SQLException {
