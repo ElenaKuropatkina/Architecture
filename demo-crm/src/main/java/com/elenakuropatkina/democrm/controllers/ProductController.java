@@ -5,7 +5,6 @@ import com.elenakuropatkina.democrm.services.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -17,8 +16,7 @@ import java.io.IOException;
 @Controller
 public class ProductController {
 
-
-    private final ProductService productService;
+    private ProductService productService;
 
     @Autowired
     public ProductController(ProductService productService) {
@@ -49,11 +47,11 @@ public class ProductController {
     }
 
     @PostMapping("/product")
-    public String upsertProduct(Model model, RedirectAttributes redirectAttributes, Product product) throws IOException {
+    public String update(Model model, RedirectAttributes redirectAttributes, Product product) throws IOException {
         model.addAttribute("activePage", "Products");
 
         try {
-            productService.update(product);
+            productService.update(product.getId(), product.getTitle(), product.getPrice());
         } catch (Exception ex) {
             redirectAttributes.addFlashAttribute("error", true);
             if (product.getId() == null) {
@@ -64,7 +62,7 @@ public class ProductController {
         return "redirect:/products";
     }
 
-    @DeleteMapping("/product/{id}/delete")
+    @PostMapping("/product/{id}/delete")
     public String deleteProduct(Model model, @PathVariable("id") Long id) {
         productService.delete(id);
         return "redirect:/products";
