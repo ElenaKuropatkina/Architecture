@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<body>
+
+<table id="deals" class="table table-hover" cellspacing="0" width="100%">
+    <thead>
+    <tr>
+        <th>Date</th>
+        <th>Client Name</th>
+        <th>Product Title</th>
+        <th>Sum</th>
+        <th class="actions">Actions</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <td th:text="${invoice.date}"></td>
+        <td th:text="${invoice.clientName}"></td>
+        <td th:text="${invoice.productTitle}"></td>
+        <td th:text="${invoice.sum}"></td>
+        <td>
+            <button>Print</button>
+        </td>
+    </tr>
+    </tbody>
+</table>
+
+</body>
+
+</html>

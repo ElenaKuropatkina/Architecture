@@ -53,6 +53,14 @@
                                     <i class="fa fa-fw fa-trash"></i>
                                 </button>
                             </form>
+                            <a th:href="@{/deal/{id}/invoice(id=${d.id})}" class="btn btn-icon btn-pill btn-info"
+                               data-toggle="tooltip" title="Invoice">
+                                <i class="fa fa-fw fa-file"></i>
+                            </a>
+                            <a th:href="@{/deal/{id}/report(id=${d.id})}" class="btn btn-icon btn-pill btn-info"
+                               data-toggle="tooltip" title="Report">
+                               <i class="fa fa-fw fa-file-alt"></i>
+                            </a>
                         </td>
                     </tr>
                     </tbody>

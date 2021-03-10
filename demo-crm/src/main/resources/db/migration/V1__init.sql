@@ -23,10 +23,11 @@ insert into products
 ('product_3', 1500);
 
 drop table if exists deals cascade;
-create table deals (id bigserial, date date, client_id bigint, manager_id bigint, product_id bigint, connection_type varchar(255), status varchar(255), primary key(id),
+create table deals (id bigserial not null, date date, client_id bigint, manager_id bigint, product_id bigint, connection_type varchar(255), status varchar(255), primary key(id),
 foreign key (client_id) references clients(id), foreign key (manager_id) references managers(id), foreign key (product_id) references products(id));
 insert into deals
 (date, client_id, manager_id, product_id, connection_type, status) values
-('2021-02-21', 1, 2, 3, 'phone', 'isPaid');
+('2021-02-21', 1, 2, 3, 'phone', 'inProcess'),
+('2021-03-07', 2, 1, 2, 'email', 'inProcess');
 
 
