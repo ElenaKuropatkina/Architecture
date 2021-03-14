@@ -1,15 +1,14 @@
 package com.elenakuropatkina.documents;
 
-import com.elenakuropatkina.DAO.ProductDAOImpl;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
 import java.math.BigDecimal;
 import java.sql.Date;
 
+@Slf4j
+@AllArgsConstructor
 public class Report implements Document{
-
-    private static final Logger logger = LoggerFactory.getLogger(ProductDAOImpl.class);
 
     public Date date;
     public String clientName;
@@ -19,24 +18,8 @@ public class Report implements Document{
     public String connectionType;
     public String status;
 
-    public Report(Date date,
-                  String clientName,
-                  String managerName,
-                  String productTitle,
-                  BigDecimal sum,
-                  String connectionType,
-                  String status) {
-        this.date = date;
-        this.clientName = clientName;
-        this.managerName = managerName;
-        this.productTitle = productTitle;
-        this.sum = sum;
-        this.connectionType = connectionType;
-        this.status = status;
-    }
-
     @Override
     public void printDoc() {
-        logger.info("Report print");
+        log.info("Report print");
     }
 }

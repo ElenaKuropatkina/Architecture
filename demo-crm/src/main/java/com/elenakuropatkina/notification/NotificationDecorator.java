@@ -1,12 +1,11 @@
 package com.elenakuropatkina.notification;
 
+import lombok.AllArgsConstructor;
+
+@AllArgsConstructor
 public class NotificationDecorator implements Notification{
 
     private Notification notification;
-
-    public NotificationDecorator(Notification notification) {
-        this.notification = notification;
-    }
 
     @Override
     public void send(String msg) {

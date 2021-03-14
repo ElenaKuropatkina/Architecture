@@ -3,22 +3,20 @@ package com.elenakuropatkina.DAO;
 import com.elenakuropatkina.dataMappers.ClientMapper;
 import com.elenakuropatkina.entities.Client;
 import lombok.RequiredArgsConstructor;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.ConcurrentMap;
 
 @Repository
 @RequiredArgsConstructor
+@Slf4j
 public class ClientDAOImpl implements ClientDAO {
 
-
-    private static final Logger logger = LoggerFactory.getLogger(ClientDAOImpl.class);
-    private final Map<Long, Client> identityMap = new HashMap<>();
+    private final ConcurrentMap<Long, Client> identityMap = new ConcurrentHashMap<>();
 
     private final ClientMapper clientMapper;
     private final JdbcTemplate jdbcTemplate;
@@ -27,7 +25,7 @@ public class ClientDAOImpl implements ClientDAO {
     public void create(String name, String phone, String email, String notificationType) {
         String SQL = "INSERT INTO CLIENTS (name, phone, email, notificationType) VALUES (?,?,?)";
         jdbcTemplate.update(SQL, name, phone, email, notificationType);
-        logger.info("Client successfully created.\nName: " + name + ";\nPhone: " +
+        log.info("Client successfully created.\nName: " + name + ";\nPhone: " +
                 phone + "; \nEmail: " + email + ";\nNotificationType: " + notificationType + "\n");
     }
 
@@ -37,17 +35,16 @@ public class ClientDAOImpl implements ClientDAO {
         if (client == null) {
             String SQL = "SELECT * FROM CLIENTS WHERE id = ?";
             client = (Client) jdbcTemplate.queryForObject(SQL, new Object[]{id}, clientMapper);
-        }
-        if (client != null) {
             identityMap.put(id, client);
         }
+
         return client;
     }
 
 
     @Override
     public List<Client> findAll() {
-        logger.info("findAll_clients");
+        log.info("findAll_clients");
         String SQL = "SELECT * FROM CLIENTS";
         List<Client> clients = jdbcTemplate.query(SQL, clientMapper);
         return clients;
@@ -58,14 +55,14 @@ public class ClientDAOImpl implements ClientDAO {
         identityMap.remove(id);
         String SQL = "DELETE FROM CLIENTS WHERE id = ?";
         jdbcTemplate.update(SQL, id);
-        logger.info("Client with id: " + id + " successfully deleted");
+        log.info("Client with id: " + id + " successfully deleted");
     }
 
     @Override
     public void update(Long id, String name, String phone, String email, String notificationType) {
         String SQL = "UPDATE CLIENTS SET name = ?, phone = ?, email = ?, notification_type = ? WHERE id = ?";
         jdbcTemplate.update(SQL, name, phone, email, notificationType, id);
-        logger.info("Client with id: " + id + " successfully updated.");
+        log.info("Client with id: " + id + " successfully updated.");
     }
 }
 
